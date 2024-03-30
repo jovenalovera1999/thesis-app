@@ -37,6 +37,11 @@ class StudentController extends Controller
             'student_id_no' => ['required'],
             'password' => ['required', 'confirmed'],
             'password_confirmation' => ['required']
+        ], [
+            'strand_id.required' => 'The strand field is required.',
+            'section_id.required' => 'The section field is required.',
+            'teacher_id.required' => 'The teacher field is required.',
+            'student_id_no.required' => 'The student id number is required'
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
