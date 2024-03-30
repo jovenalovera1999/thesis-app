@@ -2,7 +2,7 @@
 
 @section('content')
 <header>
-    <h1 class = "logo"><img src = "logo.png"></h1>
+    <h1 class = "logo"><img src="{{ asset('img/logo.png') }}"></h1>
     <nav class="navigation">
         <a href="admin1.html">Home</a>
         <a href="/student/create">Add Account</a>
