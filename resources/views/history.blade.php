@@ -4,8 +4,8 @@
 <header>
     <h1 class = "logo"><img src="{{ asset('img/logo.png') }}"></h1>
     <nav class="navigation">
-        <a href="admin1.html">Home</a>
-        <a href="/student/create">Add Account</a>
+        <a href="/admin/dashboard">Home</a>
+        <a href="/student/register">Add Account</a>
         <a href="#"></a>
         <input class="srch" type="text" placeholder= "Search Here...">
         <button class ="btn"> SEARCH </button>
@@ -29,7 +29,7 @@
                 <tr>
                     <td>{{ date('m/d/Y h:i A', strtotime($student->created_at)) }}</td>
                     <td>{{ $student->full_name }}</td>
-                    <td>{{ $student->strand }}</td>
+                    <td>{{ $student->strand . ' ' . $student->section }}</td>
                     <td>{{ $student->teacher }}</td>
                     <td>{{ $student->student_id_no }}</td>
                 </tr>

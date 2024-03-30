@@ -3,14 +3,17 @@
 @section('content')
 <div class="wrapper">
     <h1>ADMIN LOG IN</h1>
-    <form action="#" method="post">
+    <form action="/admin/process/login" method="post">
+        @csrf
         <div class="input-box">
-            <input type="email" placeholder="Admin User" name="email" class="form-control" required>
+            <input type="text" placeholder="Admin User" name="username" class="form-control" />
             <i class='bx bxs-user'></i>
+            @error('username') <p style="color: white">{{ $message }}</p> @enderror
         </div>
         <div class="input-box">
-            <input type="password" placeholder="Password" name="password" class="form-control" required>
+            <input type="password" placeholder="Password" name="password" class="form-control" />
             <i class='bx bxs-lock-alt'></i>
+            @error('password') <p style="color: white">{{ $message }}</p> @enderror
         </div>
         <div class="form-btn">
             <input type="submit" value="Login" name="login" class="btn btn-primary">

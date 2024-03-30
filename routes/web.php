@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,18 +15,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(AdminController::class)->group(function() {
+    Route::get('/admin/login', 'login')->name('login');
+    Route::post('/admin/process/login', 'processLogin');
+});
+
 Route::controller(StudentController::class)->group(function() {
     Route::get('/', 'loginPage');
-    Route::post('/student/login', 'loginProcess');
+    Route::post('/student/process/login', 'processLogin');
 });
 
-Route::controller(StudentController::class)->group(function() {
-    Route::get('/students/login/histories', 'index');
-    Route::get('/student/register', 'create');
+Route::group(['middleware' => 'auth:admin'], function() {
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/admin/dashboard', 'dashboard');
+    });
 
-    Route::post('/student/store', 'store');
+    Route::controller(StudentController::class)->group(function() {
+        Route::get('/students/login/histories', 'index');
+        Route::get('/student/register', 'create');
+    
+        Route::post('/student/store', 'store');
+    });
 });
-
-// Route::get('/admin', function() {
-//     return view('adminlog');
-// });

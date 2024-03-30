@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(../img/library.png) no-repeat;
+    background: url(library.png) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -26,6 +26,7 @@ body {
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
+    display: flexbox;
 }
 
 .wrapper h1 {

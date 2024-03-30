@@ -18,6 +18,7 @@ class StudentController extends Controller
             ->join('strands', 'students.strand_id', '=', 'strands.strand_id')
             ->join('sections', 'students.section_id', '=', 'sections.section_id')
             ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
+            ->orderBy('login_histories.login_history_id', 'desc')
             ->get();
             
         return view('history', compact('students'));
@@ -88,7 +89,7 @@ class StudentController extends Controller
         return view('login');
     }
 
-    public function loginProcess(Request $request) {
+    public function processLogin(Request $request) {
         $validated = $request->validate([
             'student_id_no' => ['required'],
             'password' => ['required']
