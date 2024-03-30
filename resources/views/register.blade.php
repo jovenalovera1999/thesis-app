@@ -19,6 +19,15 @@
                 <input type="text" class="form-control" name="full_name" placeholder="Full Name" required>
             </div>
             <div class="input-box">
+                <input type="text" class="form-control" name="strand_id" placeholder="Strand" required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="form-control" name="section_id" placeholder="Section" required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="form-control" name="teacher_id" placeholder="Teacher" required>
+            </div>
+            <div class="input-box">
                 <input type="emamil" class="form-control" name="student_id_no" placeholder="ID Number" required>
             </div>
             <div class="input-box">

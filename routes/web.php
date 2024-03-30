@@ -20,7 +20,12 @@ Route::controller(StudentController::class)->group(function() {
 });
 
 Route::controller(StudentController::class)->group(function() {
+    Route::get('/students/login/histories', 'index');
     Route::get('/student/register', 'create');
 
     Route::post('/student/store', 'store');
 });
+
+// Route::get('/admin', function() {
+//     return view('adminlog');
+// });
