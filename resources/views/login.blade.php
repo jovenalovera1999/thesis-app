@@ -7,7 +7,7 @@
     <form action="/student/process/login" method="post">
         @csrf
         <div class="input-box">
-            <input type="text" placeholder="ID Number" name="student_id_no" class="form-control" />
+            <input type="text" placeholder="ID Number" name="student_id_no" class="form-control" value="{{ old('student_id_no') }}" />
             <i class='bx bxs-user'></i>
             @error('student_id_no') <p style="color: white">{{ $message }}</p> @enderror
         </div>

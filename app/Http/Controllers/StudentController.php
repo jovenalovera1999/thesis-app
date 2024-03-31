@@ -30,18 +30,22 @@ class StudentController extends Controller
 
     public function store(Request $request) {
         $validated = $request->validate([
-            'full_name' => ['required'],
-            'strand_id' => ['required'],
-            'section_id' => ['required'],
-            'teacher_id' => ['required'],
-            'student_id_no' => ['required'],
-            'password' => ['required', 'confirmed'],
-            'password_confirmation' => ['required']
+            'full_name' => ['required', 'max:55'],
+            'strand_id' => ['required', 'max:55'],
+            'section_id' => ['required', 'max:55'],
+            'teacher_id' => ['required', 'max:55'],
+            'student_id_no' => ['required', 'max:55'],
+            'password' => ['required', 'confirmed', 'max:15'],
+            'password_confirmation' => ['required', 'max:15']
         ], [
             'strand_id.required' => 'The strand field is required.',
             'section_id.required' => 'The section field is required.',
             'teacher_id.required' => 'The teacher field is required.',
-            'student_id_no.required' => 'The student id number is required'
+            'student_id_no.required' => 'The student id number is required',
+            'strand_id.max' => 'The strand field must not be greater than 55 characters.',
+            'section_id.max' => 'The section field must not be greater than 55 characters.',
+            'teacher_id.max' => 'The teacher field must not be greater than 55 characters.',
+            'student_id_no.max' => 'The student id number field must not be greater than 55 characters.'
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
@@ -96,8 +100,11 @@ class StudentController extends Controller
 
     public function processLogin(Request $request) {
         $validated = $request->validate([
-            'student_id_no' => ['required'],
-            'password' => ['required']
+            'student_id_no' => ['required', 'max:55'],
+            'password' => ['required', 'max:15']
+        ], [
+            'student_id_no.required' => 'The student id number field is required.',
+            'student_id_no.max' => 'The student id number field must not be greater than 55 characters.'
         ]);
 
         $student = Student::where('student_id_no', $validated['student_id_no'])
