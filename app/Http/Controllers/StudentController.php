@@ -18,9 +18,26 @@ class StudentController extends Controller
             ->join('strands', 'students.strand_id', '=', 'strands.strand_id')
             ->join('sections', 'students.section_id', '=', 'sections.section_id')
             ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
-            ->orderBy('login_histories.login_history_id', 'desc')
-            ->get();
-            
+            ->orderBy('login_histories.login_history_id', 'desc');
+
+        if(request()->has('search')) {
+            $searchTerm = request()->get('search');
+
+            if($searchTerm) {
+                $students = $students->where(function($query) use ($searchTerm) {
+                    $query->where('login_histories.created_at', 'like', "%$searchTerm%")
+                        ->orWhere('students.full_name', 'like', "%$searchTerm%")
+                        ->orWhere('students.student_id_no', 'like', "%$searchTerm%")
+                        ->orWhere('strands.strand', 'like', "%$searchTerm%")
+                        ->orWhere('sections.section', 'like', "%$searchTerm%")
+                        ->orWhere('teachers.teacher', 'like', "%$searchTerm%")
+                        ->orderBy('login_histories.login_history_id', 'desc');
+                });
+            }
+        }
+
+        $students = $students->paginate(25);
+
         return view('history', compact('students'));
     }
 
