@@ -67,48 +67,25 @@ class StudentController extends Controller
 
         $validated['password'] = bcrypt($validated['password']);
 
-        // Strand
-        $strand = Strand::where('strand', $validated['strand_id'])->first();
+        // Retrieve or create Strand
+        $strand = Strand::firstOrCreate(['strand' => $validated['strand_id']]);
+        $validated['strand_id'] = $strand->strand_id;
 
-        if (empty($strand)) {
-            $strand = Strand::create([
-                'strand' => $validated['strand_id']
-            ]);
+        // Retrieve or create Section
+        $section = Section::firstOrCreate(['section' => $validated['section_id']]);
+        $validated['section_id'] = $section->section_id;
 
-            $validated['strand_id'] = $strand->strand_id;
+        // Retrieve or create Teacher
+        $teacher = Teacher::firstOrCreate(['teacher' => $validated['teacher_id']]);
+        $validated['teacher_id'] = $teacher->teacher_id;
+
+        $student = Student::create($validated);
+
+        if ($student) {
+            return back()->with('message_success', 'Student successfully registered.');
         } else {
-            $validated['strand_id'] = $strand->strand_id;
+            return back()->with('message_failed', 'Failed to register student.');
         }
-
-        // Section
-        $section = Section::where('section', $validated['section_id'])->first();
-
-        if (empty($section)) {
-            $section = Section::create([
-                'section' => $validated['section_id']
-            ]);
-
-            $validated['section_id'] = $section->section_id;
-        } else {
-            $validated['section_id'] = $section->section_id;
-        }
-
-        // Teacher
-        $teacher = Teacher::where('teacher', $validated['teacher_id'])->first();
-
-        if (empty($teacher)) {
-            $teacher = Teacher::create([
-                'teacher' => $validated['teacher_id']
-            ]);
-
-            $validated['teacher_id'] = $teacher->teacher_id;
-        } else {
-            $validated['teacher_id'] = $teacher->teacher_id;
-        }
-
-        Student::create($validated);
-
-        return back()->with('message_success', 'Student successfully registered.');
     }
 
     public function loginPage() {

@@ -6,13 +6,14 @@
         <nav class="navigation">
             <a href="/admin/dashboard">Home</a>
             <a href="/students/login/histories">History</a>
-            <a href="#"></a>
+            <a href="#">Logout</a>
         </nav>
 </header>
     
 
     <div class="wrapper">
-    <h1> REGISTER </h1>
+        @include('include.toast_messages')
+        <h1> REGISTER </h1>
         <form action="/student/store" method="post">
             @csrf
             <div class="input-box">
