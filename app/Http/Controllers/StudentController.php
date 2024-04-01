@@ -36,7 +36,7 @@ class StudentController extends Controller
             }
         }
 
-        $students = $students->paginate(25);
+        $students = $students->paginate(10);
 
         return view('history', compact('students'));
     }
@@ -105,11 +105,17 @@ class StudentController extends Controller
             ->first();
 
         if($student && Hash::check($validated['password'], $student->password)) {
-            LoginHistory::create([
+            $loginHistory = LoginHistory::create([
                 'student_id' => $student->student_id
             ]);
 
-            return back()->with('message_success', 'Successfully logged in.');
+            if($loginHistory) {
+                return back()->with('message_success', 'Successfully logged in.');
+            } else {
+                return back()->with('message_failed', 'Failed to logged in.');
+            }
+        } else {
+            return back()->with('message_failed', 'ID number or password is incorrect.');
         }
     }
 }

@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="wrapper">
+    @include('include.toast_messages')
     <h1>LOG IN</h1>
     <form action="/student/process/login" method="post">
         @csrf

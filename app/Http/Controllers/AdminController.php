@@ -27,7 +27,7 @@ class AdminController extends Controller
         if($user && auth()->guard('admin')->attempt($validated)) {
             auth()->login($user);
             $request->session()->regenerate();
-            return redirect('/admin/dashboard');
+            return redirect('/admin/dashboard')->with('message_success', 'Welcome ' . auth()->user()->full_name . '!');
         } else {
             return back()->with('message_failed', 'Username or password is incorrect.');
         }
