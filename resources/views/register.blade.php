@@ -1,16 +1,14 @@
 @extends('layout.main')
 
 @section('content')
+
 <header>
         <h1 class = "logo"><img src = "{{ asset('img/logo.png') }}"></h1>
         <nav class="navigation">
-            <a href="/admin/dashboard">Home</a>
-            <a href="/students/login/histories">History</a>
-            <a href="#">Logout</a>
+            @include('include.nav_menu')
         </nav>
 </header>
     
-
     <div class="wrapper">
         @include('include.toast_messages')
         <h1> REGISTER </h1>
@@ -45,11 +43,12 @@
                 @error('password_confirmation') <p style="color: white">{{ $message }}</p> @enderror
             </div>
             <div class="form-btn">
-                <input type="submit" class="btn btn-primary" value="Register" name="submit" />
+                <input type="submit" class="btn btn-primary" name="submit" />
             </div>
         </form>
         <div>
         <div><p><center>Already Registered? <a href="/">Login Here</a></center></p></div>
       </div>
     </div>
+
 @endsection

@@ -1,29 +1,21 @@
 @extends('layout.main')
 
 @section('content')
+
 <header>
-    <h1 class = "logo"><img src="{{ asset('img/logo.png') }}"></h1>
+    <h1 class="logo"><img src="{{ asset('img/logo.png') }}"></h1>
     <nav class="navigation">
-        <div class="row">
-            <div class="col">
-                <a href="/admin/dashboard">Home</a>
-                <a href="/student/register">Add Account</a>
-                <a href="#"></a>
-            </div>
-            <div class="col">
-                <form action="/students/login/histories" method="get">
-                    <input class="srch" type="text" id="search" name="search" placeholder= "Search Here..." />
-                </form>
-            </div>
-        </div>
-        {{-- <button class ="btn"> SEARCH </button> --}}
+        @include('include.nav_menu')
     </nav>
 </header>
 
 <div class="container">
     <h1 class="mt-5">SENIOR HIGH STUDENTS HISTORY</h1>
     <div class="table-responsive">
-        <div class="mt-1 me-1">
+        <form action="/students/login/histories" method="get">
+            <input class="srch float-end" type="text" id="search" name="search" placeholder= "Search Here..." />
+        </form>
+        <div class="mt-5 me-1">
             {{ $students->links() }}
         </div>
         <table>
@@ -51,8 +43,5 @@
         </table>
     </div>
 </div>
-
-</body>
-</html>
 
 @endsection

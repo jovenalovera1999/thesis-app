@@ -17,7 +17,9 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'full_name' => fake()->firstName() . ' ' . fake()->lastName(),
+            'username' => fake()->userName(),
+            'password' => bcrypt('123')
         ];
     }
 }

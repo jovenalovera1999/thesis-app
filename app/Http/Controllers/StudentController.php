@@ -36,7 +36,7 @@ class StudentController extends Controller
             }
         }
 
-        $students = $students->paginate(10);
+        $students = $students->paginate(8);
 
         return view('history', compact('students'));
     }

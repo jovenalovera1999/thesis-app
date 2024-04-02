@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
         Admin::factory()->create([
             'full_name' => 'Administrator',
             'username' => 'admin',
-            'password' => bcrypt('admin@2024!!')
+            'password' => bcrypt('admin')
         ]);
+
+        Admin::factory(50)->create();
     }
 }

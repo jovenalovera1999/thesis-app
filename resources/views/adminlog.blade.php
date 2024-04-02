@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="wrapper">
+    @include('include.toast_messages')
     <h1>ADMIN LOG IN</h1>
     <form action="/admin/process/login" method="post">
         @csrf
