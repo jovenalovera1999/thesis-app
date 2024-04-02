@@ -1,3 +1,5 @@
+// Updated js code for toast message
+
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         let toastSuccess = new bootstrap.Toast(document.getElementById('toast_success'));
