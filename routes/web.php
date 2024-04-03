@@ -46,9 +46,16 @@ Route::group(['middleware' => 'auth:admin'], function() {
     });
 
     Route::controller(StudentController::class)->group(function() {
-        Route::get('/students/login/histories', 'index');
+        Route::get('/students', 'index');
+        Route::get('/students/login/histories', 'loginHistories');
         Route::get('/student/register', 'create');
+        Route::get('/student/edit/{id}', 'edit');
+        Route::get('/student/delete/{id}', 'delete');
     
         Route::post('/student/store', 'store');
+
+        Route::put('/student/update/{student}', 'update');
+
+        Route::delete('/student/destroy/{student}', 'destroy');
     });
 });

@@ -19,7 +19,8 @@ class Student extends Authenticatable
         'section_id',
         'teacher_id',
         'student_id_no',
-        'password'
+        'password',
+        'is_deleted'
     ];
     protected $hidden = ['password'];
 }

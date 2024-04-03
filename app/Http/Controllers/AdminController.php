@@ -9,7 +9,22 @@ use Illuminate\Validation\Rule;
 class AdminController extends Controller
 {
     public function index() {
-        $admins = Admin::paginate(6);
+        $admins = Admin::where('is_deleted', false);
+
+        if(request()->has('search')) {
+            $searchTerm = request()->get('search');
+
+            if($searchTerm) {
+                $admins = $admins->where(function($query) use ($searchTerm) {
+                    $query->where('admins.full_name', 'like', "%$searchTerm%");
+                });
+            }
+        }
+
+        $admins = $admins->orderBy('full_name', 'asc')
+            ->paginate(6)
+            ->appends(['search' => request()->get('search')]);
+    
         return view('admin.index', compact('admins'));
     }
 
@@ -59,8 +74,8 @@ class AdminController extends Controller
         return view('admin.delete', compact('admin'));
     }
 
-    public function destroy(Request $request, Admin $admin) {
-        $admin = $admin->delete($request);
+    public function destroy(Admin $admin) {
+        $admin = $admin->update(['is_deleted' => 1]);
 
         if($admin) {
             return redirect('/admins')->with('message_success', 'Admin successfully deleted.');

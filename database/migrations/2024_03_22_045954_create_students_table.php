@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->string('student_id_no', 55)->unique();
             $table->string('password', 255);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
 
             $table->foreign('strand_id')

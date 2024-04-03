@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('full_name', 55);
             $table->string('username', 55)->unique();
             $table->string('password', 255);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
         });
     }
