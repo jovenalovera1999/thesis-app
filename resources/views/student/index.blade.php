@@ -50,7 +50,7 @@
                         <div class="btn-group">
                             <a href="/student/edit/{{ $student->student_id }}" class="btn btn-warning text-black">Edit</a>
                             <a href="/student/delete/{{ $student->student_id }}" class="btn btn-danger text-black">Delete</a>
-                            <a href="#" class="btn btn-danger text-black">Reset Password</a>
+                            <a href="/student/edit/password/{{ $student->student_id }}" class="btn btn-danger text-black">Change Password</a>
                         </div>
                     </td>
                 </tr>

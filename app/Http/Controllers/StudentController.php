@@ -7,6 +7,7 @@ use App\Models\Section;
 use App\Models\Strand;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -160,6 +161,35 @@ class StudentController extends Controller
             return redirect('/students')->with('message_success', 'Student successfully updated.');
         } else {
             return back()->with('message_failed', 'Failed to update student.');
+        }
+    }
+
+    public function editPassword($id) {
+        $student = Student::find($id);
+        return view('student.edit_password', compact('student'));
+    }
+
+    public function updatePassword(Request $request, Student $student) {
+        $validated = $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed'],
+            'password_confirmation' => ['required']
+        ]);
+
+        $validated['password'] = bcrypt($validated['password']);
+
+        if(Hash::check($validated['current_password'], $student->password)) {
+            $student = $student->update([
+                'password' => $validated['password']
+            ]);
+
+            if($student) {
+                return redirect('/students')->with('message_success', 'Student password successfully updated.');
+            } else {
+                return back()->with('message_failed', 'Failed to update student password.');
+            }
+        } else {
+            return back()->with('message_failed', 'Password is incorrect.');
         }
     }
 
