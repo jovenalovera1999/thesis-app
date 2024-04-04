@@ -17,7 +17,7 @@ class LoginHistoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id' => fake()->numberBetween(1, 500)
+            'student_id' => fake()->numberBetween(1, 10)
         ];
     }
 }

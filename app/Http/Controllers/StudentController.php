@@ -15,9 +15,9 @@ class StudentController extends Controller
 {
     public function index() {
         $students = Student::select('students.student_id','students.student_id_no', 'students.full_name', 'strands.strand', 'sections.section', 'teachers.teacher', 'students.created_at', 'students.updated_at')
-            ->rightJoin('strands', 'students.strand_id', '=', 'strands.strand_id')
-            ->rightJoin('sections', 'students.section_id', '=', 'sections.section_id')
-            ->rightJoin('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
+            ->join('strands', 'students.strand_id', '=', 'strands.strand_id')
+            ->join('sections', 'students.section_id', '=', 'sections.section_id')
+            ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
             ->where('students.is_deleted', false);
 
         if(request()->has('search')) {
@@ -44,10 +44,10 @@ class StudentController extends Controller
 
     public function loginHistories() {
         $students = LoginHistory::select('login_histories.created_at', 'students.full_name', 'students.student_id_no', 'strands.strand', 'sections.section', 'teachers.teacher')
-            ->rightJoin('students', 'login_histories.student_id', '=', 'students.student_id')
-            ->rightJoin('strands', 'students.strand_id', '=', 'strands.strand_id')
-            ->rightJoin('sections', 'students.section_id', '=', 'sections.section_id')
-            ->rightJoin('teachers', 'students.teacher_id', '=', 'teachers.teacher_id');
+            ->join('students', 'login_histories.student_id', '=', 'students.student_id')
+            ->join('strands', 'students.strand_id', '=', 'strands.strand_id')
+            ->join('sections', 'students.section_id', '=', 'sections.section_id')
+            ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id');
 
         if(request()->has('search')) {
             $searchTerm = request()->get('search');
@@ -119,9 +119,9 @@ class StudentController extends Controller
     }
 
     public function edit($id) {
-        $student = Student::rightJoin('strands', 'students.strand_id', '=', 'strands.strand_id')
-            ->rightJoin('sections', 'students.section_id', '=', 'sections.section_id')
-            ->rightJoin('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
+        $student = Student::join('strands', 'students.strand_id', '=', 'strands.strand_id')
+            ->join('sections', 'students.section_id', '=', 'sections.section_id')
+            ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
             ->find($id);
 
         return view('student.edit', compact('student'));
@@ -164,9 +164,9 @@ class StudentController extends Controller
     }
 
     public function delete($id) {
-        $student = Student::rightJoin('strands', 'students.strand_id', '=', 'strands.strand_id')
-            ->rightJoin('sections', 'students.section_id', '=', 'sections.section_id')
-            ->rightJoin('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
+        $student = Student::join('strands', 'students.strand_id', '=', 'strands.strand_id')
+            ->join('sections', 'students.section_id', '=', 'sections.section_id')
+            ->join('teachers', 'students.teacher_id', '=', 'teachers.teacher_id')
             ->find($id);
 
         return view('student.delete', compact('student'));

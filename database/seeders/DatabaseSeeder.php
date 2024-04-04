@@ -96,8 +96,6 @@ class DatabaseSeeder extends Seeder
 
         Teacher::factory(8)->create();
 
-        Student::factory(500)->create();
-
-        LoginHistory::factory(8)->create();
+        Student::factory(10)->create();
     }
 }
